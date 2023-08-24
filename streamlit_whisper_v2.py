@@ -4,8 +4,7 @@ import tempfile
 import os
 from time import sleep
 from stqdm import stqdm
-
-### Formatting
+from transformers import GPT2LMHeadModel, GPT2Tokenizer
 
 # Create title and sidebar for navigation
 st.title("AI Audio File Summarizer")
@@ -26,6 +25,12 @@ transcription_in_progress = False
 transcript_cached = False
 transcript_saved = False
 
+# Load GPT-2 model and tokenizer
+
+model_name = "gpt2-large" 
+model = GPT2LMHeadModel.from_pretrained(model_name)
+tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+
 ### Function Definitions
 
 # Transcription function 
@@ -36,6 +41,21 @@ def transcribe_audio(audio_file_path):
     transcription_in_progress = False
     transcript_cached = True
     return transcription
+
+# Function to generate a summary using GPT-2
+def generate_summary(context, requirements, transcript_text):
+    # Create a prompt for the GPT-2 model
+    prompt = f"Context: {context}\nRequirements: {requirements}\nTranscription: {transcript_text}\nFufill the requirements stated"
+
+    # Encode the prompt
+    input_ids = tokenizer.encode(prompt, return_tensors="pt")
+
+    # Generate a summary using the model
+    summary_ids = model.generate(input_ids, max_length=100, num_return_sequences=1)
+
+    # Decode the generated summary
+    summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
+    return summary
 
 ### Transcription Section
 
@@ -80,6 +100,8 @@ if selected_section == "Transcription":
 ### Summarization Section
 
 if selected_section == "AI Summarization":
+    st.subheader("AI Summarization")
+
     st.subheader("Transcript Status")
 
     # Show if a transcript has been loaded in the session state
@@ -90,4 +112,16 @@ if selected_section == "AI Summarization":
     else:
         st.error("No transcript loaded")
 
-   # Load the LLM  
+    # Input fields for context, requirements, and transcript
+    context = st.text_area("Context (e.g., 'This recording was a Dungeons and Dragons session'):")
+    requirements = st.text_area("Requirements (e.g., 'Please print out the characters in the session as well as the key events'):")
+    transcript_text = st.session_state["transcript_text"]
+
+    # Button to generate summary
+    if st.button("Generate Summary"):
+        if context and requirements and transcript_text:
+            summary = generate_summary(context, requirements, transcript_text)
+            st.subheader("Generated Summary:")
+            st.write(summary)
+        else:
+            st.warning("Please fill in all input fields before generating a summary.")
