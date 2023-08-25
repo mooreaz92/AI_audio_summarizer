@@ -7,7 +7,12 @@ from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from secret_api_key import API_KEY
 
-os.environ['OPENAI_API_KEY'] = API_KEY
+# Try to load the API key from secret_api_key.py to the environment variables. If the file does not exist, set the API key to None
+
+try:
+    API_KEY = os.environ["OPENAI_API_KEY"]
+except KeyError:
+    API_KEY = None
 
 # Create title and sidebar for navigation
 st.title("AI Audio File Summarizer")
@@ -48,10 +53,6 @@ def transcribe_audio(audio_file_path):
     transcript_cached = True
     return transcription
 
-# Function to call the OpenAI API with a prompt
-
-llm = OpenAI(temperature=0.9)
-
 # Transcription Section
 if selected_section == "Transcription":
     st.subheader("Transcription")
@@ -71,19 +72,32 @@ if selected_section == "Transcription":
     # Display a truncated version of the transcript only when the transcribe button has been pressed
     if transcript_cached:
         st.subheader("Transcription Sample")
-        st.write(transcript_cached["text"][:500])
+        st.write(transcript_cached["text"][:1000])
 
 # Summarization Section
 if selected_section == "AI Summarizer":
     st.subheader("AI Summarizer")
     st.subheader("Transcript Status")
 
+    # Try to load an llm model from the OpenAI API. If the API key is not provided, show ask the user to provide one in the sidebar
+
+    try:
+        llm = OpenAI(temperature=.9, openai_api_key=API_KEY)
+    except:
+        llm = None
+        st.warning("No API Key loaded, please enter your OpenAI API Key in the sidebar")
+        st.sidebar.subheader("OpenAI API Key")
+        API_KEY = st.sidebar.text_input("Enter your OpenAI API Key")
+        if API_KEY:
+            llm = OpenAI(temperature=.9, openai_api_key=API_KEY)
+            st.success("API Key loaded successfully")
+
     # Show if a transcript has been loaded in the session state
     if st.session_state["transcript_text"]:
         st.success("Transcript loaded successfully")
     else:
-        st.error("No transcript loaded")
-
+        st.warning("No transcript loaded")
+    
     # Input fields for context, requirements, and transcript
     context = st.text_area("Context (e.g., 'This recording was a quick call between friends'):")
     requirements = st.text_area("Requirements (e.g., 'Give me a summary of the action items from this call'):")
@@ -91,7 +105,7 @@ if selected_section == "AI Summarizer":
 
 
     # Check if all required inputs are provided show a button to submit to the OpenAI API. Then use a LangChain PromptTemplate and LLMChain to generate a summary
-
+    
     if context and requirements and transcript_text:
         if st.button("Submit to OpenAI"):
             with st.spinner(text="Generating summary..."):
