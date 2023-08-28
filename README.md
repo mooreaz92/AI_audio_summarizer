@@ -1,6 +1,13 @@
-# AI Audio Transcription and Summarization App
+# AI Audio Transcription and Summarization Application
 
-![Placeholder Image](placeholder_image.png)
+<br>
+</br>
+
+<img src="images/transcription_2.jpg" alt="Image Description" style="border-radius: 20px; width: 40%; max-width: 100%; margin: 0 auto; display: block; box-shadow: 5px 5px 5px rgba(0,0,0,0.2); ">
+
+<br>
+</br>
+
 
 This repository contains a Streamlit application that leverages the OpenAI Whisper Audio Transcription Library and OpenAI's API to provide audio transcription and AI summarization services. With this app, you can easily transcribe audio and generate AI-powered summaries based on your specified context and requirements.
 
@@ -14,6 +21,12 @@ This repository contains a Streamlit application that leverages the OpenAI Whisp
 
 ---
 
+## Demo of Current Iteration
+
+A video of the MVP can be found here:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/LYLPVzuD6Dw" frameborder="0" allowfullscreen></iframe>
+
 ## Project Overview and Motivation
 
 This project came about from a personal need: I was tired of taking notes. 
@@ -23,6 +36,8 @@ Whether it is business meetings, lectures, trainings, or even sessions of dungeo
 With all of the computational problems that can be solved with AI, I figured that this was a problem ripe for being solved with LLM's. I started looking into audio transcription and summarization libraries and found that OpenAI had recently released their [Whisper library]. I had had experience using Chat GPT (like i'm sure most people have) but thought it would be good to get some hands on experience using the API to make calls to GPT3 inside of an application. I decided to build a Streamlit application that leverages these two tools to provide audio transcription and AI summarization services.
 
 ## Features
+
+<img src="images/sound_wave_1.gif" alt="Image Description" style="border-radius: 20px; width: 30%; max-width: 100%; margin: 0 auto; display: block; box-shadow: 5px 5px 5px rgba(0,0,0,0.2); ">
 
 #### Active Features
 
@@ -76,11 +91,6 @@ While the OpenAI whisper library is relatively lightweight and easy to install, 
 
 I decided to use the OpenAI API to generate the summaries. This was a much better solution, as the results were much better and the application was much faster. The only downside is that it requires an API key, but I think that is a small price to pay for the benefits and there is a free trial that users can leverage.
 
-## Demo
-
-A video of the MVP can be found here:
-
-[![MVP Demo](https://www.youtube.com/watch?v=LYLPVzuD6Dw.jpg)](https://www.youtube.com/watch?v=LYLPVzuD6Dw)
 
 
 
