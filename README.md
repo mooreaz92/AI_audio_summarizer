@@ -3,7 +3,7 @@
 <br>
 </br>
 
-<img src="images/transcription_2.jpg" alt="Image Description" style="border-radius: 20px; width: 40%; max-width: 100%; margin: 0 auto; display: block; box-shadow: 5px 5px 5px rgba(0,0,0,0.2); ">
+<img src="images/transcription_2.jpg" alt="Image Description" style="border-radius: 20px; width: 80%; max-width: 100%; margin: 0 auto; display: block; box-shadow: 5px 5px 5px rgba(0,0,0,0.2); ">
 
 <br>
 </br>
@@ -12,12 +12,11 @@
 This repository contains a Streamlit application that leverages the OpenAI Whisper Audio Transcription Library and OpenAI's API to provide audio transcription and AI summarization services. With this app, you can easily transcribe audio and generate AI-powered summaries based on your specified context and requirements.
 
 ## Table of Contents
-- [Project Overview](#project-overview)
+- [Demo](#demo-of-current-iteration)
+- [Project Overview](#project-overview-and-motivation)
 - [Features and Future Features](#features)
-- [Usage](#usage)
 - [Repo Structure](#repo-structure)
 - [Iterations](#iterations)
-- [Demo](#demo)
 
 ---
 
@@ -25,7 +24,7 @@ This repository contains a Streamlit application that leverages the OpenAI Whisp
 
 A video of the MVP can be found here:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/LYLPVzuD6Dw" frameborder="0" allowfullscreen></iframe>
+[![YouTube Video](https://img.youtube.com/vi/LYLPVzuD6Dw/0.jpg)](https://www.youtube.com/watch?v=LYLPVzuD6Dw&t=10s)
 
 ## Project Overview and Motivation
 
@@ -37,7 +36,7 @@ With all of the computational problems that can be solved with AI, I figured tha
 
 ## Features
 
-<img src="images/sound_wave_1.gif" alt="Image Description" style="border-radius: 20px; width: 30%; max-width: 100%; margin: 0 auto; display: block; box-shadow: 5px 5px 5px rgba(0,0,0,0.2); ">
+<img src="images/sound_wave_1.gif" alt="Image Description" style="border-radius: 20px; width: 80%; max-width: 100%; margin: 0 auto; display: block; box-shadow: 5px 5px 5px rgba(0,0,0,0.2); ">
 
 #### Active Features
 
